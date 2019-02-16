@@ -1,5 +1,6 @@
 const config = require('../config')
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise
 
 function connect(){
     let dbConnectionOptions = {poolSize: 5, useNewUrlParser: true, server: {socketOptions: {keepAlive: true}}}

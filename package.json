@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "it": "mocha test/it/specs/*.spec.js",
+    "it": "mocha test/it/specs/index.spec.js --timeout 10000",
     "test": "npm run it "
   },
   "dependencies": {
@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "uuid": "^3.3.2"
   }
 }
