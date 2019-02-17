@@ -19,6 +19,7 @@ MeetingSchema.methods = {
     saveOrUpdate: function(callBack){
         const err = this.validateSync();
         if(err && err.toString()) throw new Error(err.toString())
+        // return promise
         return this.save(callBack)
     }
 }
