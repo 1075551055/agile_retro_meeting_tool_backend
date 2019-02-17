@@ -3,14 +3,20 @@ const Schema = mongoose.Schema
 const dbConnection = require('./db')
 
 let MeetingSchema = new Schema({
-    meetingId:{
-        type: String,
-        unique: true,
-        required: [true, "Meeting id is required"]
-    },
+    // meetingId:{
+    //     type: String,
+    //     unique: true,
+    //     required: [true, "Meeting id is required"]
+    // },
     meetingName:{
         type: String,
         default: "agile retro meeting"
+    },
+    createIodt: {
+        type: Date,
+        default: () => {
+            return Date.now()
+        }
     }
 })
 

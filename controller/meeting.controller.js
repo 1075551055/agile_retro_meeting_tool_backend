@@ -5,9 +5,9 @@ exports.create = async(function* (req, res) {
     let meeting = new Meeting(req.body)
     try {
         yield meeting.saveOrUpdate().then(result => {
-            let meetingIdObj = {meetingId: result.meetingId}
+            let meetingIdObj = {meetingId: result.id}
             let respondObj = Object.assign(meetingIdObj, respond.success)
-            return res.json(respond.success)
+            return res.json(respondObj)
         })
         
     } catch(err){

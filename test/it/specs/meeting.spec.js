@@ -9,7 +9,7 @@ describe("meeting model test",function(){
             // it will popup error, so must set timeout > 2000ms. Can also set to package.json --timeout
             // this.timeout(10000)
             let meeting  = new Meeting({
-                meetingId: uuid()
+                meetingName: 'test meeting name'
             })
             meeting.saveOrUpdate().then(function(){
                 expect(meeting.isNew).not.to.be.ok
