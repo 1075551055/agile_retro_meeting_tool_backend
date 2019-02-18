@@ -16,5 +16,15 @@ describe("meeting model test",function(){
                 done()
             })
         })
+
+        it("should load nothing when meetingId does not exist", async function(){
+            let _id = '41224d776a326fb40f000001'
+            if(Meeting.validateObjectId(_id)){
+                let meeting = await Meeting.load(_id)
+                expect(meeting).to.be.equal(null)
+            }else{
+                expect(Meeting.validateObjectId(_id)).to.not.be.ok
+            }
+        })
     })
 })

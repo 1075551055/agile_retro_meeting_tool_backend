@@ -15,3 +15,27 @@ exports.create = async(function* (req, res) {
         return res.json(respond.error)
     }
 })
+
+exports.load = async function(req, res, next, meetingId){
+    try{
+        let validatedMeetingId = Meeting.validateObjectId(meetingId)
+        if(!validatedMeetingId){
+            req.meeting = null
+            return next()
+        }
+        await Meeting.load(meetingId).then(result => {
+            req.meeting = result
+        })
+    }catch(err){
+        // todo: log error
+        return next(err)
+    }
+    next()
+}
+
+exports.index = function(req, res, next){
+    if(req.meeting == null){
+        return res.json(respond.modelNotExisting)
+    }
+    res.json(respond.modelExisting)
+}

@@ -32,11 +32,14 @@ MeetingSchema.methods = {
 
 // static method: no state
 MeetingSchema.statics = {
-    load: function(meetingId){
-        return this.findOne({meetingId})
+    load: function(_id){
+        return this.findOne({_id})
     },
     list: function(callBack){
         return this.find({}, callBack)
+    },
+    validateObjectId: function(_id){
+        return mongoose.Types.ObjectId.isValid(_id)
     }
 }
 
