@@ -33,6 +33,9 @@ CommentSchema.methods = {
 CommentSchema.statics = {
     findByCommentId: function(commentId){
         return this.findOne({commentId})
+    },
+    loadAllCommentsByMeetingId: function(meetingId){
+        return this.find({meetingId})
     }
 }
 

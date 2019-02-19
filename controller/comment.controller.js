@@ -37,3 +37,23 @@ exports.update = async(function* (req, res){
         res.json(respond.error)
     }
 })
+
+exports.loadCommentByMeetingId = async(function* (req, res, next, meetingId){
+    try{
+        req.allComments = yield Comment.loadAllCommentsByMeetingId(meetingId)
+    }catch(err){
+        console.log(err)
+        return next(err)
+    }
+    next()
+})
+
+exports.index = function (req, res){
+    try{
+        // let allComments = yield Comment.loadAll()
+        res.json(req.allComments)
+    }catch(err){
+        console.log(err)
+        res.json(respond.error)
+    }
+}
