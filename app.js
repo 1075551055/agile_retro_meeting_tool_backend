@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var meetingRouter = require('./routes/meeting');
 var commentRouter = require('./routes/comment')
+var actionRouter = require('./routes/action')
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/meeting', meetingRouter);
 app.use('/comment', commentRouter);
+app.use('/action', actionRouter)
 
 // todo: add mongoose db connection once open method
 
