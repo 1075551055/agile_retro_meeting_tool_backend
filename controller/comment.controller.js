@@ -57,3 +57,18 @@ exports.index = function (req, res){
         res.json(respond.error)
     }
 }
+
+exports.deleteCommentByCommentId = function(req, res){
+    try{
+        req.comment.delete().then(result => {
+            console.log(result)
+            if(result.ok != 0){
+                return res.json(respond.error)
+            }
+            res.json(respond.success)
+        })
+    }catch(err){
+        console.log(err)
+        next(err)
+    }
+}

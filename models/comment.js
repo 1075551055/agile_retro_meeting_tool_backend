@@ -26,6 +26,9 @@ CommentSchema.methods = {
         const err = this.validateSync()
         if(err && err.toString()) throw new Error(err.toString())
         return this.save()
+    },
+    delete: function(){
+        return this.remove()
     }
 }
 

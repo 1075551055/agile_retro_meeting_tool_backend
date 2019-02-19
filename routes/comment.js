@@ -7,5 +7,6 @@ router.param('meetingId', commentController.loadCommentByMeetingId)
 router.post('/', commentController.create)
 router.put('/:commentId', commentController.update)
 router.get('/:meetingId', commentController.index)
+router.delete('/:commentId', commentController.deleteCommentByCommentId)
 
 module.exports = router
