@@ -27,6 +27,9 @@ ActionSchema.methods= {
 ActionSchema.statics = {
     loadAllActionsByMeetingId: function(meetingId){
         return this.find({meetingId})
+    },
+    deleteByActionId: function(actionId){
+        return this.remove({actionId})
     }
 }
 

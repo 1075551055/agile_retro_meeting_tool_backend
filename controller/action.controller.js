@@ -27,3 +27,18 @@ exports.loadActionByMeetingId = async(function* (req, res, next, meetingId){
 exports.index = function(req, res){
     res.json(req.allActions)
 }
+
+exports.destory = function(req, res){
+    try{
+        let actionId =req.params.actionId
+        Action.deleteByActionId(actionId).then(result => {
+            if(result.ok != 1){
+                res.json(respond.error)
+            }
+            res.json(respond.success)
+        })
+    }catch(err){
+        console.log(err)
+        res.json(respond.error)
+    }
+}
