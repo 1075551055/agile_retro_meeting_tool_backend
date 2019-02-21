@@ -1,11 +1,13 @@
 const Comment = require('../models/comment')
 const respond = require('../utils')
 const {wrap: async} = require('co');
+const socket_io = require('../socket_api')
 
 exports.create = function(req, res){
     try{
         let comment  = new Comment(req.body)
         comment.saveOrUpdate().then(result =>{
+            socket_io.sendNotificationWhenAddComment(result)
             res.json(respond.success)
         })
     }catch(err){
@@ -31,6 +33,7 @@ exports.update = async(function* (req, res){
     comment = Object.assign(comment, req.body)
     try{
         yield comment.saveOrUpdate()
+        socket_io.sendNotificationWhenChangeCommentType({commentId: comment.commentId, commentType: comment.commentType})
         res.json(respond.success)
     }catch(err){
         // todo: add log
@@ -61,8 +64,8 @@ exports.index = function (req, res){
 exports.deleteCommentByCommentId = function(req, res){
     try{
         req.comment.delete().then(result => {
-            console.log(result)
             if(result.ok != 0){
+                socket_io.sendNotificationWhenDeleteComment(result.commentId)
                 return res.json(respond.error)
             }
             res.json(respond.success)
