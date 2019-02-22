@@ -9,10 +9,14 @@ io.on('connection', function(socket){
     socket.on('disconnect', function(){
         console.log('user disconnected');
     });
+    socket.on('meetingConnect', function(meetingId){
+        console.log("meeting room id :" + meetingId);
+        socket.join(meetingId);
+    })
 })
 
 socketApi.sendNotificationWhenAddComment = function(commentData){
-    io.emit('ADDCOMMENT', commentData);
+    io.to(commentData.meetingId).emit('ADDCOMMENT', commentData);
 }
 
 socketApi.sendNotificationWhenDeleteComment = function(commentId){
@@ -20,7 +24,7 @@ socketApi.sendNotificationWhenDeleteComment = function(commentId){
 }
 
 socketApi.sendNotificationWhenChangeCommentType = function(commentData){
-    io.emit('CHANGECOMMENTTYPE', commentData);
+    io.to(commentData.meetingId).emit('CHANGECOMMENTTYPE', commentData);
 }
 
 module.exports = socketApi;

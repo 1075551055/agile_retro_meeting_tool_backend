@@ -33,7 +33,7 @@ exports.update = async(function* (req, res){
     comment = Object.assign(comment, req.body)
     try{
         yield comment.saveOrUpdate()
-        socket_io.sendNotificationWhenChangeCommentType({commentId: comment.commentId, commentType: comment.commentType})
+        socket_io.sendNotificationWhenChangeCommentType({meetingId: comment.meetingId, commentId: comment.commentId, commentType: comment.commentType})
         res.json(respond.success)
     }catch(err){
         // todo: add log
