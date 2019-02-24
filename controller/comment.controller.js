@@ -12,6 +12,7 @@ exports.create = function(req, res){
         })
     }catch(err){
         //todo: log error
+        console.log(err)
         res.json(respond.error)
     }
 }

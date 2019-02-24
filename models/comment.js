@@ -42,4 +42,9 @@ CommentSchema.statics = {
     }
 }
 
+// field validation
+CommentSchema.path('content').validate(function(item){
+    return item.length <= 500;
+}, 'The content maximum length is 500')
+
 module.exports = dbConnection.model('Comment', CommentSchema)

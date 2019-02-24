@@ -33,4 +33,9 @@ ActionSchema.statics = {
     }
 }
 
+// field validation
+ActionSchema.path('actionContent').validate(function(item){
+    return item.length <= 500;
+},'The actionContent maximum length is 500')
+
 module.exports = dbConnection.model('Action', ActionSchema)
