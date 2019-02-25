@@ -18,6 +18,12 @@ let CommentSchema = new Schema({
         type: String,
         required:[true, "comment type is required"]
     },
+    createIodt: {
+        type: Date,
+        default: () => {
+            return Date.now()
+        }
+    }
 })
 
 // object methods

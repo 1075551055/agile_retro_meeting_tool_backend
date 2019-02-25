@@ -2,6 +2,7 @@ const Comment = require('../models/comment')
 const respond = require('../utils')
 const {wrap: async} = require('co');
 const socket_io = require('../socket_api')
+const log =  require('log4js').getLogger("actionContoller");
 
 exports.create = function(req, res){
     try{
@@ -11,8 +12,7 @@ exports.create = function(req, res){
             res.json(respond.success)
         })
     }catch(err){
-        //todo: log error
-        console.log(err)
+        log.error("create comment went wrong:", err)
         res.json(respond.error)
     }
 }
@@ -22,8 +22,7 @@ exports.loadCommentByCommentId = async (function* (req, res, next, commentId){
         req.comment = yield Comment.findByCommentId(commentId)
         if (!req.comment) return next(new Error('Comment not found'));
     }catch(err){
-        console.log(err)
-        // todo: add log
+        log.error("loadCommentByCommentId went wrong:", err)
         return next(err)
     }
     next()
@@ -37,7 +36,7 @@ exports.update = async(function* (req, res){
         socket_io.sendNotificationWhenChangeCommentType({meetingId: comment.meetingId, commentId: comment.commentId, commentType: comment.commentType})
         res.json(respond.success)
     }catch(err){
-        // todo: add log
+        log.error("update comment went wrong:", err)
         res.json(respond.error)
     }
 })
@@ -46,7 +45,7 @@ exports.loadCommentByMeetingId = async(function* (req, res, next, meetingId){
     try{
         req.allComments = yield Comment.loadAllCommentsByMeetingId(meetingId)
     }catch(err){
-        console.log(err)
+        log.error("loadCommentByMeetingId went wrong:", err)
         return next(err)
     }
     next()
@@ -57,7 +56,7 @@ exports.index = function (req, res){
         // let allComments = yield Comment.loadAll()
         res.json(req.allComments)
     }catch(err){
-        console.log(err)
+        log.error("comment index list went wrong:", err)
         res.json(respond.error)
     }
 }
@@ -72,7 +71,7 @@ exports.deleteCommentByCommentId = function(req, res){
             res.json(respond.success)
         })
     }catch(err){
-        console.log(err)
+        log.error("deleteCommentByCommentId went wrong:", err)
         next(err)
     }
 }

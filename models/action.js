@@ -13,6 +13,12 @@ const ActionSchema = new Schema({
     },
     actionContent:{
         type:String
+    },
+    createIodt: {
+        type: Date,
+        default: () => {
+            return Date.now()
+        }
     }
 })
 

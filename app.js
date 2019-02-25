@@ -2,7 +2,8 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// var logger = require('morgan');
+var log4js = require('log4js');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -12,11 +13,18 @@ var actionRouter = require('./routes/action')
 
 var app = express();
 
+// log4js
+//We won't need this.
+//var logger = require('morgan');
+var log = log4js.getLogger("app");
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+// replace this with the log4js connect-logger
+// app.use(logger('dev'));
+app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

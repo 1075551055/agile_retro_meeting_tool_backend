@@ -1,6 +1,7 @@
 const Action = require('../models/action')
 const respond = require('../utils')
 const {wrap: async} = require('co')
+const log =  require('log4js').getLogger("actionContoller");
 
 exports.create = function(req, res){
     try{
@@ -9,7 +10,7 @@ exports.create = function(req, res){
             res.json(respond.success)
         })
     }catch(err){
-        console.log(err)
+        log.error("create action went wrong:", err)
         res.json(respond.error)
     }
 }
@@ -18,7 +19,7 @@ exports.loadActionByMeetingId = async(function* (req, res, next, meetingId){
     try{
         req.allActions = yield Action.loadAllActionsByMeetingId(meetingId)
     }catch(err){
-        console.log(err)
+        log.error("loadActionByMeetingId went wrong:", err)
         next(err)
     }
     next()
@@ -38,7 +39,7 @@ exports.destory = function(req, res){
             res.json(respond.success)
         })
     }catch(err){
-        console.log(err)
+        log.error("destory action went wrong:", err)
         res.json(respond.error)
     }
 }

@@ -3,14 +3,15 @@ var io = socket_io();
 var socketApi = {};
 
 socketApi.io = io;
+var log = require('log4js').getLogger("socketapi");
 
 io.on('connection', function(socket){
-    console.log('A user connected');
+    log.debug('A user connected');
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+        log.debug('user disconnected');
     });
     socket.on('meetingConnect', function(meetingId){
-        console.log("meeting room id :" + meetingId);
+        log.info("meeting room id :" + meetingId);
         socket.join(meetingId);
     })
 })

@@ -1,6 +1,7 @@
 const Meeting = require('../models/meeting')
 const respond = require('../utils')
 const {wrap:async} = require('co')
+const log =  require('log4js').getLogger("meetingContoller");
 exports.create = async(function* (req, res) {
     let meeting = new Meeting(req.body)
     try {
@@ -11,7 +12,7 @@ exports.create = async(function* (req, res) {
         })
         
     } catch(err){
-        // todo: log error
+        log.error("create meeting went wrong:", err)
         return res.json(respond.error)
     }
 })
