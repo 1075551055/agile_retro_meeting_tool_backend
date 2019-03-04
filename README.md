@@ -8,5 +8,5 @@
 # install dependencies
 npm install
 
-# start application
-npm start
+# start application 
+npm start (pls note: need to start mongodb server in local 27017 port)
